@@ -8,11 +8,10 @@
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "author": "Karan Baliyan",
+  "author": "Aditya",
   "license": "ISC",
   "dependencies": {
     "@getbrevo/brevo": "^3.0.1",
-    "@google/generative-ai": "^0.24.1",
     "bcrypt": "^6.0.0",
     "canvas": "^3.2.0",
     "cloudinary": "^1.41.3",

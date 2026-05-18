@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import Assignment from "../models/assignment.model.js";
 import User from "../models/user.model.js";
 import Notification from "../models/notification.model.js";
-import { getModel } from "../services/gemini.service.js";
 import {
   normalizeCloudinaryFileUrl,
   uploadBufferToCloudinary,
@@ -18,43 +17,6 @@ function getErrorMessage(err) {
     "Unknown error"
   );
 }
-
-// AI Check Assignment (uses memory buffer)
-export const aiCheckAssignment = async (req, res) => {
-  try {
-    if (!req.file) {
-      return res.send("Please upload a file.");
-    }
-
-    console.log("FILE RECEIVED:", req.file);
-
-    const base64Data = req.file.buffer.toString("base64");
-    const model = getModel("gemini-2.0-flash-exp");
-
-    const result = await model.generateContent([
-      {
-        inlineData: {
-          data: base64Data,
-          mimeType: req.file.mimetype,
-        },
-      },
-      {
-        text: `Extract all text from this file. Fix grammar, improve clarity, rewrite paragraphs.`,
-      },
-    ]);
-
-    const response = await result.response;
-    const aiText = response.text();
-
-    return res.render("student/ai-check-result", {
-      result: aiText,
-      filename: req.file.originalname,
-    });
-  } catch (err) {
-    console.error("AI CHECK ERROR:", err);
-    return res.status(500).send("AI overloaded, try again in 5s.");
-  }
-};
 
 // Get Dashboard with Filters and Pagination
 export const getDashboard = async (req, res) => {

@@ -3,7 +3,6 @@ import { protect, studentOnly } from "../middlewares/auth.middleware.js";
 import {
   uploadSingle,
   uploadMultiple,
-  uploadForAI,
 } from "../middlewares/multer.middleware.js";
 import {
   getDashboard,
@@ -17,7 +16,6 @@ import {
   downloadAssignmentFile,
   viewAssignmentFile,
   resubmitAssignment,
-  aiCheckAssignment,
   getNotifications,
   markNotificationRead,
   markAllNotificationsRead,
@@ -66,9 +64,6 @@ router.post(
   uploadSingle,
   resubmitAssignment
 );
-
-// AI Check - FIXED: Use uploadForAI instead of uploadSingle
-router.post("/ai-check", protect, studentOnly, uploadForAI, aiCheckAssignment);
 
 // Notifications
 router.get("/notifications", protect, studentOnly, getNotifications);

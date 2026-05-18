@@ -28,13 +28,6 @@ export const uploadSingle = multer({
   fileFilter,
 }).single("file");
 
-// AI check upload (memory buffer)
-export const uploadForAI = multer({
-  storage: memoryStorage,
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
-  fileFilter,
-}).single("file");
-
 // Multiple PDFs (bulk)
 export const uploadMultiple = multer({
   storage: memoryStorage,
